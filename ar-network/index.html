@@ -1,0 +1,41 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+  <meta name="theme-color" content="#0b1220">
+  <title>Packet Lab — сеть в дополненной реальности</title>
+  <link rel="stylesheet" href="styles.css">
+  <script defer src="vendor/aframe.min.js"></script>
+  <script defer src="vendor/aframe-ar.js"></script>
+  <script defer src="network.js"></script>
+  <script defer src="app.js"></script>
+</head>
+<body>
+  <header class="topbar"><a class="brand" href="index.html"><span class="logo">⬡</span> PACKET<span>LAB</span></a><span class="subtitle">Компьютерная сеть • AR</span><nav><a id="mode-link" href="?mode=ar">Включить AR ↗</a><a href="marker.html" target="_blank" rel="noopener">Маркер ↗</a></nav></header>
+  <main>
+    <section class="workspace" aria-label="Трёхмерная сеть">
+      <div class="scene-top"><span id="mode-badge" class="badge">3D ОБЗОР</span><span id="tracking" class="badge">Без камеры</span></div>
+      <div id="viewport"></div>
+      <div id="welcome" class="welcome" hidden><span class="eyebrow">ДОПОЛНЕННАЯ РЕАЛЬНОСТЬ</span><h1>Поставьте сеть<br>на свой стол</h1><p>Откройте маркер на другом экране или распечатайте его. Затем включите камеру и наведите её на маркер.</p><button id="start-ar" class="primary">Включить камеру</button><p id="camera-message" role="status"></p></div>
+      <div id="fatal" role="alert" hidden></div>
+      <div class="scene-bottom"><span id="scene-hint">Перетаскивайте для вращения • Колесо — масштаб</span><button id="reset-view" class="ghost">Сбросить вид</button></div>
+    </section>
+    <aside class="panel">
+      <div class="panel-heading"><div><span class="eyebrow">ИНТЕРАКТИВНАЯ МОДЕЛЬ</span><h1>Путь пакета</h1></div><button id="collapse" class="ghost" aria-expanded="true" aria-label="Свернуть панель">−</button></div>
+      <div id="panel-body">
+        <p class="intro">Выберите два устройства и проследите передачу данных через сеть.</p>
+        <div class="selectors"><label>Отправитель<select id="source"></select></label><button id="swap" class="swap" title="Поменять устройства местами" aria-label="Поменять устройства местами">⇄</button><label>Получатель<select id="target"></select></label></div>
+        <div class="selection-mode"><span>Нажатие на модель выбирает:</span><button id="pick-source" class="chip active" aria-pressed="true">Отправителя</button><button id="pick-target" class="chip" aria-pressed="false">Получателя</button></div>
+        <div class="actions"><button id="send" class="primary">Отправить пакет →</button><button id="pause" disabled>Пауза</button><button id="reset" class="ghost">Сброс</button></div>
+        <label class="speed-label" for="speed">Скорость <output id="speed-value">1×</output></label><input id="speed" type="range" min="0.5" max="2" step="0.25" value="1">
+        <section class="status-card"><div class="status-head"><span id="state">Готово к отправке</span><span id="step-counter">0 / 0</span></div><progress id="progress" max="1" value="0" aria-label="Прогресс передачи"></progress><p id="explanation" role="status" aria-live="polite">Нажмите «Отправить пакет», чтобы начать.</p></section>
+        <section class="route-section"><h2>Маршрут</h2><ol id="route"></ol></section>
+        <section class="device-card"><h2 id="device-name">Об устройстве</h2><p id="device-description">Нажмите на устройство в сцене, чтобы узнать его назначение.</p></section>
+        <p class="footnote">Учебная визуализация. Один IP-пакет передаётся в одну сторону; ARP, DNS и установление TCP-соединения не моделируются.</p>
+      </div>
+    </aside>
+  </main>
+  <noscript>Для работы проекта включите JavaScript в браузере.</noscript>
+</body>
+</html>
